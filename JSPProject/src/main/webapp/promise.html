@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="UTF-8">
+  <title>promise.html</title>
+</head>
+
+<body>
+  <script>
+    // AJAX(비동기방식) => XMLHttpRequest();
+
+    // 중첩코드 -> 1 -> 2 -> 3 :
+    // callback1 (
+    //     callback2 (
+    //       callback3();
+    //     );
+    // );
+
+    setTimeout(function () {
+      console.log('func1')
+      setTimeout(function () {
+        console.log('func2')
+        setTimeout(function () {
+          console.log('func3')
+        }, 2000)
+      }, 2000);
+    }, 1000);
+
+    // callback1()
+    // callback2()
+    // callback3()
+
+
+    // callback1->2->3 순서대로 처리
+
+    // promise 객체 -> 자바스크립트 영역
+    // object / 함수 내 매개값 : 함수 / 정상적으로 처리 -> resolve, 비정상적으로 처리 -> reject
+    let val = 4;
+ 
+    let prom = new Promise(function (resolve, reject) {
+      setTimeout(function () {
+        if (val > 0) {
+          resolve('success'); 
+          val -= 2;
+        } else
+          reject('error');
+      }, 2000)
+    }); 
+    //then 안에 정의된 구문을 실행하기 위한 resolve, reject.
+
+    prom
+      .then(function (result) {
+        console.log(result);
+        return new Promise(function (resolve, reject) {
+          setTimeout(function () {
+            if (val > 0) {
+              resolve('success');
+              val -= 2;
+            } else
+              reject('error'); 
+          }, 2000)
+        });
+      })
+      .then(function (result) {
+        console.log(result);
+        return new Promise(function (resolve, reject) {
+          setTimeout(function () {
+            if (val > 0) {
+              resolve('success');
+              val -= 2;
+            } else
+              reject('error'); 
+          }, 2000)
+        });
+      })
+      .catch(function (reject) {
+        console.log(reject);
+      });
+  </script>
+</body>
+
+</html>
