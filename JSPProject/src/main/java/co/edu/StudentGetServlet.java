@@ -41,15 +41,17 @@ public class StudentGetServlet extends HttpServlet {
 				// student에 list가 들어갔기 때문에 student를 값으로 넣어야함.
 				response.getWriter().println("<h3>학생번호 : " + student.getStudentNo() + "</h3>");
 				response.getWriter().println("<h3>이름 : " + student.getStudentName() + "</h3>");
-				response.getWriter().println("<form name='frm' action='StudentGetServlet' method='get'>"
-						+ "영어점수 : <input type='text' value =" + student.getEngScore() + " ><br><br>");// input
-				response.getWriter().println("국어점수 : <input type='text' value =" + student.getKorScore() + "><br><br>");// input
-				response.getWriter().println("<input type = 'hidden' name = 'user_id' value="+student.getStudentNo()+">");
-				response.getWriter().println("<input type='hidden' name = 'user_name' value="+student.getStudentName()+">");
-				
-				response.getWriter().println("<input type='submit' value='수정'>");
-				response.getWriter().println("<br><br></form>");
+				response.getWriter().println("<form name='frm' action='StudentGetServlet' method='post'>"
+						+ "영어점수 : <input type='text' name='eng_score' value =" + student.getEngScore() + " ><br><br>");// input
+				response.getWriter().println("국어점수 : <input type='text' name='kor_score' value =" + student.getKorScore() + "><br><br>");// input
+				response.getWriter()
+						.println("<input type = 'hidden' name = 'user_id' value=" + student.getStudentNo() + ">");
+				response.getWriter()
+						.println("<input type='hidden' name = 'user_name' value=" + student.getStudentName() + ">");
 
+				response.getWriter().println("<input type='hidden' name='cmd' value='mod'><input type='submit' value='수정'>");
+				response.getWriter().println("<br><br></form>");
+				
 			} else {
 				response.getWriter().print("<script>alert('조회된 데이터가 없습니다.')</script>");
 			}
