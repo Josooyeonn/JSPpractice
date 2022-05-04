@@ -25,8 +25,8 @@ public class MemberInsertControl implements Control {
 		MemberVO vo = new MemberVO();
 		vo.setId(id);
 		vo.setName(nm);
-		vo.setEmail(em);
 		vo.setPasswd(ps);
+		vo.setEmail(em);
 		
 		MemberService service = new MemberService();
 		service.memberInsert(vo);
