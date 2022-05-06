@@ -1,9 +1,11 @@
 <!DOCTYPE html>
 <html>
+
 <head>
-<meta charset="UTF-8">
-<title>Insert title here</title>
+	<meta charset="UTF-8">
+	<title>Insert title here</title>
 </head>
+
 <body>
 	<h3>Ajax 호출. (Single Page Application)</h3>
 	<form name="frm" action="memberInsertJson.do" method="post" enctype="multipart/form-data">
@@ -14,7 +16,7 @@
 		<!--이미지 : <input type="file" name="profile"><br>-->
 		<input type="submit" value="추가">
 	</form>
-	
+
 	<table border="1">
 		<thead>
 			<tr>
@@ -27,74 +29,78 @@
 		</thead>
 		<tbody id="list"></tbody>
 	</table>
-	
+
 	<script>
-		let fields = ['id','name','email','passwd','profile'];	
-		function makeTr(member = {}){
+		let fields = ['id', 'name', 'email', 'passwd', 'profile'];
+
+		function makeTr(member = {}) {
 			let tr = document.createElement('tr');
-			for (let field of fields){
+			for (let field of fields) {
 				let td = document.createElement('td');
 				td.innerHTML = `${member[field] ? member[field] : '' } `;
 				tr.append(td);
 			}
 			return tr;
 		}
-		
-		function init(){
+
+		function init() {
 			// 서버에서 회원리스트 => 화면출력
 			let ajax = new XMLHttpRequest();
-			
+
 			fetch('memberListJson.do') //요청 url
 				.then(result => result.json()) // 가지고 온 형태의 json으로 고쳐줌
 				.then(result1 => {
 					console.log(result1);
 					let tlist = document.getElementById('list');
-					result1.forEach(obj => {tlist.append(makeTr(obj))
+					result1.forEach(obj => {
+						tlist.append(makeTr(obj))
 					});
 				})
 				.catch(error => console.log(error));
-			
+
 			// 업로드 버튼에 이벤트 추가
 			let frm = document.forms.frm;
-			frm.addEventListener('submit', function(e){
+			frm.addEventListener('submit', function (e) {
 				e.preventDefault();
 				console.log(frm.action)
 				let formData = new FormData(frm);
-				for(let keyVal of formData.entries()){
-					console.log(keyVal + ", " + keyVal[0]+", "+keyVal[1]); //['key', 'value']		
+				for (let keyVal of formData.entries()) {
+					console.log(keyVal + ", " + keyVal[0] + ", " + keyVal[1]); //['key', 'value']		
 				}
-				
+
 				// form 태그요소 multipart요청으로 처리. document.forms.frm.id.value(사용x)
 				// 속성도 모두 가져옴. url, 요청방식 {}				
-				fetch(frm.action,{
-						method : 'post',
-						headers : {'Content-type': 'application/x-www-form-urlencoded'},
-						body : formDataToEncoding(formData)
-					}) 
-					
-						//요청페이지, 추가 요청을 obj 타입으로 요청
-						// frm.action="memberInsertJson.do"
+				fetch(frm.action, {
+						method: 'post',
+						headers: {
+							'Content-type': 'application/x-www-form-urlencoded'
+						},
+						body: formDataToEncoding(formData)
+					})
+
+					//요청페이지, 추가 요청을 obj 타입으로 요청
+					// frm.action="memberInsertJson.do"
 					.then(data => data.json()) //매개변수 이름 : data, 타입 : text형식으로 출력함.
 					.then(result => {
 						console.log(result);
 						document.getElementById('list').append(makeTr(result));
 					})
 					.catch(error => console.log(error));
-			});			
-			
+			});
+
 		}
 		init();
-		
-		function formDataToEncoding(frmData=[]){
+
+		function formDataToEncoding(frmData = []) {
 			// id=user1&name=Hong&passwd=1234&mail=hong@email.com
 			let ary = [];
-			for(let keyVal of frmData.entries()){
+			for (let keyVal of frmData.entries()) {
 				ary.push(keyVal[0] + '=' + keyVal[1]); // id=hong&name=.....
 			}
 			return ary.join('&');
-		} 
-		
+		}
 	</script>
-	
+
 </body>
+
 </html>
