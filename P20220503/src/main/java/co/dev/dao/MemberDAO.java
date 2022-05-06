@@ -18,6 +18,7 @@ public class MemberDAO extends DAO {
 			psmt.setString(3, vo.getEmail());
 			psmt.setString(4, vo.getId());
 			psmt.executeUpdate();
+
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
@@ -30,10 +31,10 @@ public class MemberDAO extends DAO {
 			psmt = conn.prepareStatement("delete from member where id = ?");
 			psmt.setString(1, id);
 			int r = psmt.executeUpdate();
-			System.out.println(r+"건 삭제되었습니다.");
+			System.out.println(r + "건 삭제되었습니다.");
 		} catch (SQLException e) {
 			e.printStackTrace();
-		}finally {
+		} finally {
 			disconnect();
 		}
 	}
@@ -50,11 +51,13 @@ public class MemberDAO extends DAO {
 				vo.setId(rs.getString("id"));
 				vo.setName(rs.getString("name"));
 				vo.setPasswd(rs.getString("passwd"));
+				vo.setProfile(rs.getString("profile"));
 				list.add(vo);
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
+
 			disconnect();
 		}
 		return list;
@@ -63,7 +66,7 @@ public class MemberDAO extends DAO {
 
 	public void insertMember(MemberVO member) {
 		conn = getConnect();
-		String sql = "insert into member(id,name,passwd,email) values(?,?,?,?)";
+		String sql = "insert into member(id,name,passwd,email,profile) values(?,?,?,?,?)";
 
 		try {
 			psmt = conn.prepareStatement(sql);
@@ -71,6 +74,7 @@ public class MemberDAO extends DAO {
 			psmt.setString(2, member.getName());
 			psmt.setString(3, member.getPasswd());
 			psmt.setString(4, member.getEmail());
+			psmt.setString(5, member.getProfile());
 
 			int r = psmt.executeUpdate();
 			System.out.println(r + "건 입력.");
