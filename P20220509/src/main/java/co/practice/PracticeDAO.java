@@ -55,13 +55,13 @@ public class PracticeDAO {
 			psmt = conn.prepareStatement(sql);
 			psmt.setString(1, ckList);
 			int r = psmt.executeUpdate();
-			System.out.println(r+"건 삭제되었습니다.");
+			System.out.println(r + "건 삭제되었습니다.");
 		} catch (SQLException e) {
 			e.printStackTrace();
-		}finally {
+		} finally {
 			disConnect();
 		}
-		
+
 	}
 
 	public void getConnect() {
