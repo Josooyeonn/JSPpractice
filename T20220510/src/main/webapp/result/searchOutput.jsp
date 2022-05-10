@@ -19,8 +19,8 @@
 				${book.bookAuthor }
 				${book.bookPress }
 				${book.bookPrice }
-			
 			</c:if> 
+			</form>
 	<br>
 	<a href="${pageContext.servletContext.contextPath }/index.jsp">첫페이지</a>
 
