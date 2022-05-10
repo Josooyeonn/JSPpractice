@@ -2,8 +2,12 @@
   "ExpandedNodes": [
     "",
     "\\JSPProject",
-    "\\P20220509"
+    "\\P20220509",
+    "\\T20220510",
+    "\\T20220510\\src",
+    "\\T20220510\\src\\main",
+    "\\T20220510\\src\\main\\webapp"
   ],
-  "SelectedNode": "\\P20220509\\.gitignore",
+  "SelectedNode": "\\T20220510\\src\\main\\webapp\\index.jsp",
   "PreviewInSolutionExplorer": false
 }
