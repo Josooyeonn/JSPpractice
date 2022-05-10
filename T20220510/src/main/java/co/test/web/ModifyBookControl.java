@@ -14,7 +14,7 @@ public class ModifyBookControl implements Controller {
 	@Override
 	public void execute(HttpServletRequest request, HttpServletResponse response) 
 			throws ServletException, IOException {
-
+		
 		String bookCode = request.getParameter("code");
 		String bookTitle = request.getParameter("title");
 		String bookAuthor = request.getParameter("author");
@@ -22,19 +22,16 @@ public class ModifyBookControl implements Controller {
 		int bookPrice = Integer.parseInt(request.getParameter("price"));
 
 		BookVO vo = new BookVO();
-		vo.setBookCode(bookCode);
 		vo.setBookTitle(bookTitle);
 		vo.setBookAuthor(bookAuthor);
 		vo.setBookPress(bookPress);
 		vo.setBookPrice(bookPrice);
+		vo.setBookCode(bookCode);
 
 		BookService service = new BookService();
-		service.addBook(vo);
+		service.modifyBook(vo);
 
-		request.setAttribute("title", bookTitle);
-		request.setAttribute("author", bookAuthor);
-		request.setAttribute("press", bookPress);
-		request.setAttribute("price", bookPrice);
+		request.setAttribute("vo", vo);
 
 		request.getRequestDispatcher("result/modifyOutput.jsp").forward(request, response);
 	}

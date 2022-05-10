@@ -13,7 +13,7 @@
 	<h3>조회결과페이지</h3>
 			<c:if test="${!empty result }">${result }</c:if>
 			<c:if test="${!empty book }">
-						
+			<form action="${pageContext.servletContext.contextPath }/addBook.do" method="get">			
 				${book.bookCode }
 				${book.bookTitle }
 				${book.bookAuthor }

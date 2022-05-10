@@ -21,15 +21,12 @@ public class SearchBookControl implements Controller {
 
 		String path = "result/searchOutput.jsp";
 
-		response.setCharacterEncoding("utf-8");
-		response.setContentType("text/json; charset=utf-8");
 
 		String bookCode = null;
 		String job = null;
 
 		// 조회 도서코드가 없을 경우 결과를 보여주는 페이지 지정.
 
-		request.setCharacterEncoding("utf-8");
 
 		bookCode = request.getParameter("bookCode");
 		job = request.getParameter("job");
@@ -63,7 +60,6 @@ public class SearchBookControl implements Controller {
 		
 		request.setAttribute("book", book);
 		request.getRequestDispatcher(path).forward(request, response);
-		System.out.println(book);
 	}
 
 }

@@ -56,7 +56,7 @@ public class BookDAO extends DAO {
 			disconn();
 		}
 		return null;
-		
+
 	}
 
 	public boolean insertBook(BookVO book) {
@@ -64,7 +64,7 @@ public class BookDAO extends DAO {
 		String sql = "INSERT INTO book_info (book_code, book_title, book_author, book_press, book_price)\r\n"
 				+ "VALUES(create_bookcode,?,?,?,?)";
 		try {
-			psmt = conn.prepareStatement(sql);			
+			psmt = conn.prepareStatement(sql);
 			psmt.setString(1, book.getBookTitle());
 			psmt.setString(2, book.getBookAuthor());
 			psmt.setString(3, book.getBookPress());
@@ -94,14 +94,14 @@ public class BookDAO extends DAO {
 			psmt.setString(3, book.getBookPress());
 			psmt.setInt(4, book.getBookPrice());
 			psmt.setString(5, book.getBookCode());
-			
+
 			int r = psmt.executeUpdate();
-			System.out.println(r+"건 수정");
-			
-			if(r>0) {
+			System.out.println(r + "건 수정");
+
+			if (r > 0) {
 				return true;
 			}
-			
+
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
@@ -110,25 +110,20 @@ public class BookDAO extends DAO {
 		return false;
 	}
 
-	public boolean deleteBook(String bookCode) {
+	public void deleteBook(String bookCode) {
 		conn();
-		String sql = "DELETE book_info where bookCode = ?";
+		String sql = "DELETE book_info where book_code = ?";
 		try {
 			psmt = conn.prepareStatement(sql);
 			psmt.setString(1, bookCode);
-			
+
 			int r = psmt.executeUpdate();
-			System.out.println(r+"건 삭제");
-			
-			if(r>0) {
-				return true;
-			}
-			
+			System.out.println(r + "건 삭제");
+
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
 			disconn();
 		}
-		return false;
 	}
 }

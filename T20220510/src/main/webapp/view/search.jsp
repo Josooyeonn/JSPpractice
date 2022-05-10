@@ -11,7 +11,7 @@
 
 	<h3>${error }</h3>
     <h3>도서조회</h3>
-    <form action="../searchBook.do" method="get">
+    <form action="${pageContext.servletContext.contextPath }/searchBook.do" method="get">
         <input type="text" name="bookCode" id=""><br>
         <input type="hidden" name="job" value="search">
         <input type="submit" value="조회">
